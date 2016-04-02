@@ -1,6 +1,6 @@
 #Quick Heatmap Tool utilizing the heatmap.3 function
 #Author: Jayit Biswas
-#Date: 1/20/16
+#Date: 4/2/2016
 #Version: Alpha
 
 #If not already installed
