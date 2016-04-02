@@ -77,12 +77,13 @@ colorswap <- function(x){
 }
 
 clab <- dat[1:(rgap1-1),(cgap1+1):(cgap2-1)]
-rownames(clab) <- dat[1:(rgap1-1),cgap1]
+clabels <- rbind(clab,rep(NA,length(dat[1,(cgap1+1):(cgap2-1)])))
+rownames(clabels) <- c(dat[1:(rgap1-1),cgap1],NA)
 rlab <- dat[(rgap1+1):(rgap2-1),1:(cgap1-1)]
 colnames(rlab) <- dat[rgap1, 1:(cgap1-1)]
-clab = t(clab)
+clabelfinal = t(clabels)
 rlab = t(rlab)
-clab = colorswap(clab)
+clabelfinal = colorswap(clabelfinal)
 rlab = colorswap(rlab)
 
 keytext <- dat[key,1:11]
@@ -102,10 +103,10 @@ dev.off()
 #     res = 300,            # 300 pixels per inch
 #     pointsize = 6)        # smaller font size
 # par(cex.main=1)
-heatmap.3(datamat, hclustfun=myclust,Rowv=TRUE, margins=c(6,12), Colv=TRUE, ColSideColors=clab, RowSideColors=rlab, key=TRUE,
+heatmap.3(datamat, hclustfun=myclust,Rowv=TRUE, margins=c(6,12), Colv=TRUE, ColSideColors=clabelfinal[,1:(nrow(clabels)-1)], RowSideColors=rlab, key=TRUE,
           density.info="none", trace="none", main=main_title, col=rev(heat.colors(200)),
-          ColSideColorsSize=ncol(clab), RowSideColorsSize=nrow(rlab), KeyValueName="Prob. Response")
+          ColSideColorsSize=ncol(clabelfinal)-1, RowSideColorsSize=nrow(rlab), KeyValueName="Prob. Response")
 legend("topright",legend= keytext#c("0","0.5","1","2","3","4","5","6","7","8","9")
          , fill=c("ghostwhite","gray","black","red","darkred","green","darkgreen","blue","darkblue","violet","darkviolet"), border=FALSE, bty="n", y.intersp = 0.9, cex=0.7)
 
-# dev.off()
+ #dev.off()
